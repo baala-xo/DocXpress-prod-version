@@ -1,9 +1,11 @@
 FROM node:16
 
-# Install Python and pip
+# Install Python, pip, and LibreOffice dependencies
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
+    python3-dev \
+    build-essential \
     libreoffice \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -12,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package.json ./
+COPY package.json ./ 
 COPY backend/package.json ./backend/
 COPY backend/package-lock.json ./backend/
 
