@@ -1,0 +1,21 @@
+{
+    "name": "docxpress",
+    "version": "1.0.0",
+    "description": "DocXpress - Word ⇄ PDF Converter Application",
+    "main": "backend/app.js",
+    "scripts": {
+      "start": "node backend/app.js",
+      "build": "echo 'No build step required'",
+      "install-dependencies": "cd backend && npm install"
+    },
+    "engines": {
+      "node": ">=14.0.0"
+    },
+    "keywords": [
+      "pdf",
+      "docx",
+      "converter"
+    ],
+    "author": "",
+    "license": "MIT"
+  }
