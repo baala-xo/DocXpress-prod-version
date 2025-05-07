@@ -1,11 +1,9 @@
 FROM node:16
 
-# Install Python, pip, and LibreOffice dependencies
+# Install Python, pip, and LibreOffice (for PDF ⇨ Word)
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
-    python3-dev \
-    build-essential \
     libreoffice \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -13,26 +11,29 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files
 COPY package.json ./ 
-COPY backend/package.json ./backend/
-COPY backend/package-lock.json ./backend/
+COPY package-lock.json ./
 
-# Install Node.js dependencies
+# Install root-level (frontend or shared) packages
+RUN npm install
+
+# Copy backend separately and install backend deps
+COPY backend/package.json backend/package-lock.json ./backend/
 RUN cd backend && npm install
 
 # Copy Python requirements and install
 COPY requirements.txt ./
 RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Copy application code
+# Copy everything else (backend, frontend, scripts, uploads)
 COPY . .
 
-# Create uploads directory
+# Create uploads folder if not exists
 RUN mkdir -p backend/uploads
 
-# Expose port
+# Expose the port
 EXPOSE 3000
 
-# Start the application
+# Start backend app
 CMD ["node", "backend/app.js"]
