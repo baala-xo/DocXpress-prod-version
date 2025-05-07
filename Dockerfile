@@ -24,7 +24,7 @@ RUN cd backend && npm install
 
 # Copy Python requirements and install
 COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Copy everything else (backend, frontend, scripts, uploads)
 COPY . .
