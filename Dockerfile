@@ -2,8 +2,8 @@ FROM node:16
 
 # Install Python and pip
 RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
+    python \
+    python-pip \
     libreoffice \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -21,7 +21,7 @@ RUN cd backend && npm install
 
 # Copy Python requirements and install
 COPY requirements.txt ./
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
