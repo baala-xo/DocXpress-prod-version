@@ -24,8 +24,8 @@ RUN cd backend && npm install
 
 # Copy Python requirements and install
 COPY requirements.txt ./
-RUN pip3 install -r requirements.txt
-
+RUN pip3 install --upgrade pip
+RUN pip3 install pdf2docx==0.5.6 --no-build-isolation
 # Copy everything else (backend, frontend, scripts, uploads)
 COPY . .
 
